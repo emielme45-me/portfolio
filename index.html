@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>K. Emiel P — Video Editor & Motion Designer</title>
+<meta name="description" content="Video editor for brands, creators and social content. 7+ years, 100+ videos delivered. Premiere Pro · After Effects · CapCut." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf9f6;       /* soft warm white */
+  --card:#ffffff;
+  --ink:#141311;         /* soft black */
+  --gray:#75726a;
+  --hair:#e7e4dc;        /* hairline */
+  --accent:#ff4d1c;      /* signal orange */
+  --accent-soft:#fff0ea;
+  --display:'Bricolage Grotesque',sans-serif;
+  --body:'Figtree',sans-serif;
+  --shadow:0 2px 6px rgba(20,19,17,.05),0 18px 44px -18px rgba(20,19,17,.14);
+  --shadow-lift:0 6px 14px rgba(20,19,17,.07),0 30px 60px -20px rgba(20,19,17,.20);
+  --r:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+/* scroll progress bar */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--accent);z-index:200;transition:width .1s linear}
+
+/* labels */
+.eyebrow{font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;font-weight:600;color:var(--accent);display:block;margin-bottom:18px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(2rem,4.8vw,3.3rem);line-height:1.06;letter-spacing:-.025em;margin-bottom:16px}
+.lede{color:var(--gray);max-width:580px;font-size:1.06rem;margin-bottom:56px}
+
+/* ---------- nav ---------- */
+nav{position:fixed;top:14px;left:0;right:0;z-index:100;pointer-events:none}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;align-items:center}
+.nav-pill{pointer-events:auto;display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.75);backdrop-filter:blur(16px);border:1px solid var(--hair);border-radius:100px;padding:8px;box-shadow:var(--shadow)}
+.brand{pointer-events:auto;font-family:var(--display);font-weight:800;font-size:1.08rem;letter-spacing:-.02em;background:rgba(255,255,255,.75);backdrop-filter:blur(16px);border:1px solid var(--hair);border-radius:100px;padding:12px 22px;box-shadow:var(--shadow);display:flex;align-items:center;gap:9px}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.75);opacity:.5}}
+.nav-pill a{font-size:.82rem;font-weight:500;color:var(--gray);padding:9px 16px;border-radius:100px;transition:color .2s,background .2s}
+.nav-pill a:hover,.nav-pill a:focus-visible{color:var(--ink);background:var(--paper)}
+.nav-pill a.hire{background:var(--ink);color:#fff;font-weight:600}
+.nav-pill a.hire:hover,.nav-pill a.hire:focus-visible{background:var(--accent)}
+.burger{display:none;pointer-events:auto;background:rgba(255,255,255,.8);border:1px solid var(--hair);border-radius:100px;padding:11px 16px;font-size:1rem;cursor:pointer;box-shadow:var(--shadow)}
+
+/* ---------- hero ---------- */
+header{padding:180px 0 90px;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;pointer-events:none;animation:drift 16s ease-in-out infinite alternate}
+.blob.b1{width:520px;height:520px;background:#ffd9c9;top:-140px;right:-120px}
+.blob.b2{width:420px;height:420px;background:#f3efe4;bottom:-160px;left:-100px;animation-delay:-8s}
+@keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(-40px,36px) scale(1.08)}}
+.hero{position:relative;z-index:1}
+.hero .status{display:inline-flex;align-items:center;gap:10px;font-size:.8rem;font-weight:500;color:var(--gray);background:var(--card);border:1px solid var(--hair);border-radius:100px;padding:9px 18px;box-shadow:var(--shadow);margin-bottom:34px}
+.hero .status i{width:8px;height:8px;border-radius:50%;background:#22b573;animation:pulse 2s infinite;font-style:normal}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(2.5rem,7.6vw,5.6rem);line-height:1.02;letter-spacing:-.02em;text-transform:uppercase}
+h1 .swap-line{color:var(--accent);display:block;min-height:1.05em}
+#swap{display:inline-block}
+#swap.out{animation:wordOut .3s forwards}
+#swap.in{animation:wordIn .4s forwards}
+@keyframes wordOut{to{opacity:0;transform:translateY(-14px);filter:blur(4px)}}
+@keyframes wordIn{from{opacity:0;transform:translateY(16px);filter:blur(4px)}to{opacity:1;transform:none;filter:none}}
+.hero-sub{display:grid;grid-template-columns:1.3fr .7fr;gap:44px;align-items:end;margin-top:40px}
+.hero-sub p{font-size:1.12rem;color:var(--gray);max-width:520px}
+.hero-sub p b{color:var(--ink);font-weight:600}
+.hero-ctas{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap}
+.btn{font-size:.88rem;font-weight:600;padding:16px 30px;border-radius:100px;display:inline-flex;align-items:center;gap:10px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s,background .2s,color .2s;cursor:pointer;border:none}
+.btn:hover,.btn:focus-visible{transform:translateY(-3px)}
+.btn-dark{background:var(--ink);color:#fff;box-shadow:var(--shadow)}
+.btn-dark:hover,.btn-dark:focus-visible{background:var(--accent);box-shadow:var(--shadow-lift)}
+.btn-light{background:var(--card);border:1px solid var(--hair);box-shadow:var(--shadow)}
+.btn-light:hover,.btn-light:focus-visible{border-color:var(--ink);box-shadow:var(--shadow-lift)}
+.btn .arr{transition:transform .25s}
+.btn:hover .arr{transform:translateX(4px)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:74px}
+.stat{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:28px 26px;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s}
+.stat:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.stat b{font-family:var(--display);font-weight:800;font-size:2.3rem;letter-spacing:-.03em;line-height:1;display:block}
+.stat b .plus{color:var(--accent)}
+.stat span{font-size:.78rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+
+/* marquee */
+.marquee{overflow:hidden;padding:26px 0;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:90px}
+.mq-track{display:flex;white-space:nowrap;animation:mq 30s linear infinite}
+.mq-track span{font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em;color:var(--gray);padding:0 30px;display:flex;align-items:center;gap:30px}
+.mq-track .x{color:var(--accent);font-size:.8rem}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- sections ---------- */
+section{padding:110px 0}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:start}
+.about-copy .big{font-family:var(--display);font-weight:600;font-size:clamp(1.35rem,2.6vw,1.85rem);line-height:1.35;letter-spacing:-.02em;margin-bottom:26px}
+.about-copy .big em{color:var(--accent);font-style:normal}
+.about-copy p{color:var(--gray);margin-bottom:18px;font-size:1.03rem}
+.about-copy p b{color:var(--ink);font-weight:600}
+.facts{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden}
+.facts li{list-style:none;display:flex;justify-content:space-between;gap:14px;padding:17px 26px;border-bottom:1px solid var(--hair);font-size:.93rem}
+.facts li:last-child{border-bottom:none}
+.facts .k{color:var(--gray)}
+.facts .v{font-weight:600;text-align:right}
+.facts .open{color:#1a9e63}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.sk{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:32px 28px;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s,border-color .3s;position:relative;overflow:hidden}
+.sk::after{content:"";position:absolute;left:28px;right:28px;bottom:0;height:3px;border-radius:3px 3px 0 0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.sk:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift)}
+.sk:hover::after{transform:scaleX(1)}
+.sk .ico{width:44px;height:44px;border-radius:13px;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:1.15rem;margin-bottom:20px}
+.sk h3{font-family:var(--display);font-weight:700;font-size:1.12rem;letter-spacing:-.015em;margin-bottom:8px}
+.sk p{color:var(--gray);font-size:.91rem}
+.tools-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:36px}
+.tool{font-size:.82rem;font-weight:500;padding:10px 20px;border-radius:100px;background:var(--card);border:1px solid var(--hair);color:var(--gray);transition:all .25s}
+.tool:hover{transform:translateY(-2px);border-color:var(--accent);color:var(--accent)}
+.tool.hot{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* ---------- work ---------- */
+#work{background:linear-gradient(#f4f2ec,#faf9f6);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.proj{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);transition:transform .35s,box-shadow .35s;display:flex;flex-direction:column}
+.proj:hover{transform:translateY(-6px);box-shadow:var(--shadow-lift)}
+.thumb{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(135deg,#1c1a17,#2e2a24)}
+.thumb .sheen{position:absolute;inset:0;background:radial-gradient(500px 260px at 30% 20%,rgba(255,77,28,.22),transparent 60%);transition:transform .6s ease}
+.proj:hover .sheen{transform:scale(1.25) rotate(6deg)}
+.play{position:absolute;inset:0;margin:auto;width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;transition:transform .3s,background .3s}
+.play::after{content:"";border-style:solid;border-width:9px 0 9px 14px;border-color:transparent transparent transparent #fff;margin-left:4px}
+.proj:hover .play{transform:scale(1.12);background:var(--accent);border-color:var(--accent)}
+.thumb .tag{position:absolute;top:14px;left:14px;font-size:.68rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.92);border-radius:100px;padding:7px 14px}
+.thumb .dur{position:absolute;bottom:12px;right:14px;font-size:.7rem;color:#cfcdc7;letter-spacing:.08em}
+/* scrub line */
+.scrub{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.15)}
+.scrub i{display:block;height:100%;width:0;background:var(--accent);transition:width 1.4s cubic-bezier(.25,1,.3,1)}
+.proj:hover .scrub i{width:78%}
+.proj-body{padding:26px 26px 28px;display:flex;flex-direction:column;gap:12px;flex:1}
+.proj-body h3{font-family:var(--display);font-weight:700;font-size:1.28rem;letter-spacing:-.02em}
+.proj-body p{color:var(--gray);font-size:.93rem;flex:1}
+.proj-meta{display:flex;gap:8px;flex-wrap:wrap}
+.pm{font-size:.74rem;font-weight:500;background:var(--paper);border:1px solid var(--hair);border-radius:100px;padding:6px 14px;color:var(--gray)}
+.proj-link{font-size:.86rem;font-weight:600;color:var(--accent);display:inline-flex;align-items:center;gap:8px;margin-top:6px}
+.proj-link .arr{transition:transform .25s}
+.proj:hover .proj-link .arr{transform:translateX(5px)}
+.work-cta{display:flex;justify-content:center;margin-top:52px}
+
+/* experience */
+.xp{position:relative;max-width:800px}
+.xp::before{content:"";position:absolute;left:7px;top:8px;bottom:8px;width:2px;background:var(--hair)}
+.xp-item{position:relative;padding:0 0 46px 44px}
+.xp-item:last-child{padding-bottom:0}
+.xp-item::before{content:"";position:absolute;left:0;top:7px;width:16px;height:16px;border-radius:50%;background:var(--card);border:4px solid var(--accent);box-shadow:var(--shadow)}
+.xp-item .when{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.xp-item h3{font-family:var(--display);font-weight:700;font-size:1.4rem;letter-spacing:-.02em;margin:8px 0 2px}
+.xp-item .org{color:var(--gray);font-size:.92rem;margin-bottom:14px}
+.xp-item ul{list-style:none}
+.xp-item li{color:var(--gray);font-size:.97rem;padding:5px 0 5px 24px;position:relative}
+.xp-item li::before{content:"";position:absolute;left:4px;top:14px;width:7px;height:2px;background:var(--accent)}
+
+/* education & testimonials */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px}
+.card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:34px 32px;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s}
+.card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.card .yr{font-family:var(--display);font-weight:800;font-size:1.05rem;color:var(--accent)}
+.card h3{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:-.015em;margin:12px 0 4px}
+.card p{color:var(--gray);font-size:.92rem}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.testi{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:32px 30px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:18px;transition:transform .3s,box-shadow .3s}
+.testi:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+.testi .stars{color:var(--accent);letter-spacing:3px;font-size:.9rem}
+.testi p{color:var(--gray);font-size:.94rem;flex:1}
+.testi .who{font-size:.8rem;color:var(--gray)}
+.testi .who b{display:block;color:var(--ink);font-weight:600;font-size:.88rem}
+
+/* contact */
+#contact{padding-bottom:130px}
+.contact-card{background:var(--ink);color:#f2f0ea;border-radius:28px;padding:70px 64px;position:relative;overflow:hidden;box-shadow:0 40px 80px -30px rgba(20,19,17,.45)}
+.contact-card .glow{position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(255,77,28,.32),transparent 65%);top:-240px;right:-160px;filter:blur(30px);animation:drift 14s ease-in-out infinite alternate;pointer-events:none}
+.contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;position:relative;z-index:1}
+#contact h2{color:#fff}
+#contact .contact-left p{color:#b6b3aa;font-size:1.02rem;max-width:380px}
+.c-list{list-style:none;margin-top:36px}
+.c-list li{display:flex;gap:18px;align-items:center;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+.c-list li:last-child{border-bottom:none}
+.c-list .k{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#8b887f;width:72px;flex-shrink:0}
+.c-list a{font-weight:600;transition:color .2s}
+.c-list a:hover{color:var(--accent)}
+.c-list .open{color:#35c98a;font-size:.88rem;font-weight:600}
+form{display:flex;flex-direction:column;gap:18px}
+label{font-size:.68rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#8b887f;display:block;margin-bottom:8px}
+input,textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:15px 18px;color:#fff;font-family:var(--body);font-size:.98rem;width:100%;transition:border-color .25s,background .25s}
+input:focus,textarea:focus{outline:none;border-color:var(--accent);background:rgba(255,255,255,.09)}
+input::placeholder,textarea::placeholder{color:#6f6c64}
+textarea{min-height:110px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+form .btn-dark{background:var(--accent);align-self:flex-start;margin-top:4px}
+form .btn-dark:hover{background:#fff;color:var(--ink)}
+.form-note{font-size:.82rem;color:#8b887f}
+
+/* footer */
+footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.foot b{font-family:var(--display);color:var(--ink)}
+.foot .o{color:var(--accent)}
+
+/* reveal — staggered */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+.stagger>*{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+.stagger.in>*{opacity:1;transform:none}
+.stagger.in>*:nth-child(1){transition-delay:.05s}
+.stagger.in>*:nth-child(2){transition-delay:.13s}
+.stagger.in>*:nth-child(3){transition-delay:.21s}
+.stagger.in>*:nth-child(4){transition-delay:.29s}
+.stagger.in>*:nth-child(5){transition-delay:.37s}
+.stagger.in>*:nth-child(6){transition-delay:.45s}
+/* hero load-in */
+.rise{opacity:0;transform:translateY(34px);animation:rise .9s cubic-bezier(.22,1,.36,1) forwards}
+.rise.d1{animation-delay:.08s}.rise.d2{animation-delay:.2s}.rise.d3{animation-delay:.34s}.rise.d4{animation-delay:.5s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .reveal,.stagger>*,.rise{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* responsive */
+@media(max-width:980px){
+  .about-grid,.contact-grid{grid-template-columns:1fr;gap:44px}
+  .skills{grid-template-columns:1fr 1fr}
+  .stats{grid-template-columns:1fr 1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .hero-sub{grid-template-columns:1fr;align-items:start}
+  .hero-ctas{justify-content:flex-start}
+  .contact-card{padding:52px 36px}
+}
+@media(max-width:760px){
+  .nav-pill{display:none;position:fixed;top:74px;left:20px;right:20px;flex-direction:column;align-items:stretch;border-radius:20px;padding:10px}
+  .nav-pill.open{display:flex}
+  .nav-pill a{padding:13px 18px;text-align:center}
+  .burger{display:block}
+  .proj-grid,.skills,.grid-2,.form-row,.stats{grid-template-columns:1fr}
+  section{padding:80px 0}
+  header{padding-top:130px}
+  .contact-card{padding:44px 26px;border-radius:22px}
+}
+</style>
+</head>
+<body>
+<div id="progress" aria-hidden="true"></div>
+
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="#top"><span class="dot"></span>Emiel.P</a>
+    <div class="nav-pill" id="navPill">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a class="hire" href="#contact">Hire Me</a>
+    </div>
+    <button class="burger" id="burger" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<header id="top">
+  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="wrap hero">
+    <span class="status rise d1"><i></i>Available for freelance &amp; part-time work</span>
+    <h1>
+      <span class="rise d2">I EDIT</span>
+      <span class="swap-line rise d3"><span id="swap">BRAND FILMS.</span></span>
+      <span class="rise d3" style="display:block">STORIES THAT HOLD ATTENTION.</span>
+    </h1>
+    <div class="hero-sub rise d4">
+      <p>I'm <b>K. Emiel P</b> — video editor &amp; motion designer with <b>7+ years</b> behind the timeline and <b>100+ videos</b> delivered end-to-end: rough cut, motion graphics, sound, grade, export.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-dark" href="#work">Watch my work <span class="arr">→</span></a>
+        <a class="btn btn-light" href="#contact">Start a project</a>
+      </div>
+    </div>
+    <div class="stats stagger">
+      <div class="stat"><b><span class="count" data-to="7">0</span><span class="plus">+</span></b><span>Years editing</span></div>
+      <div class="stat"><b><span class="count" data-to="100">0</span><span class="plus">+</span></b><span>Videos delivered</span></div>
+      <div class="stat"><b><span class="count" data-to="3">0</span></b><span>Core tools mastered</span></div>
+      <div class="stat"><b><span class="count" data-to="48">0</span><span class="plus">h</span></b><span>Typical turnaround</span></div>
+    </div>
+  </div>
+  <div class="marquee" aria-hidden="true">
+    <div class="mq-track">
+      <span>Premiere Pro <i class="x">✦</i> After Effects <i class="x">✦</i> CapCut <i class="x">✦</i> Motion Graphics <i class="x">✦</i> Color Grading <i class="x">✦</i> Sound Design <i class="x">✦</i> Storytelling <i class="x">✦</i></span>
+      <span>Premiere Pro <i class="x">✦</i> After Effects <i class="x">✦</i> CapCut <i class="x">✦</i> Motion Graphics <i class="x">✦</i> Color Grading <i class="x">✦</i> Sound Design <i class="x">✦</i> Storytelling <i class="x">✦</i></span>
+    </div>
+  </div>
+</header>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap reveal">
+    <span class="eyebrow">About me</span>
+    <h2>Every cut is a decision.<br>I make good ones.</h2>
+    <div class="about-grid" style="margin-top:40px">
+      <div class="about-copy">
+        <p class="big">Editing isn't just trimming clips — it's deciding <em>what the audience feels,</em> frame by frame.</p>
+        <p>Over seven years, what started as a passion became a craft: more than <b>100 finished videos</b> for brands, creators, college productions and social media. I own the complete workflow — rough cut, fine cut, motion graphics, sound design, color grade and delivery.</p>
+        <p>My engineering background shapes how I work: <b>methodical, detail-obsessed, dependable under deadline.</b> Fast turnaround, zero compromise on the final cut.</p>
+        <p>Currently open for <b>freelance projects and part-time roles</b>. If your footage deserves more than a basic cut — let's talk.</p>
+      </div>
+      <ul class="facts">
+        <li><span class="k">Name</span><span class="v">K. Emiel P</span></li>
+        <li><span class="k">Base</span><span class="v">India · Remote-friendly</span></li>
+        <li><span class="k">Experience</span><span class="v">7+ years</span></li>
+        <li><span class="k">Status</span><span class="v open">● Open for projects</span></li>
+        <li><span class="k">Languages</span><span class="v">English · Telugu</span></li>
+        <li><span class="k">Focus</span><span class="v">Story-driven editing</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap reveal">
+    <span class="eyebrow">What I do</span>
+    <h2>Full-stack editing,<br>start to final export.</h2>
+    <p class="lede">Every project gets the complete toolkit — technical precision in service of the story.</p>
+    <div class="skills stagger">
+      <div class="sk"><div class="ico">✂</div><h3>Video Editing</h3><p>Precision cutting with pacing, rhythm and clean narrative structure — Premiere Pro, After Effects, CapCut.</p></div>
+      <div class="sk"><div class="ico">✦</div><h3>Motion Graphics</h3><p>Logo animation, kinetic type and seamless transitions that give footage a distinct identity.</p></div>
+      <div class="sk"><div class="ico">◐</div><h3>Color Grading</h3><p>Correction and creative grades that set the mood and keep every shot consistent.</p></div>
+      <div class="sk"><div class="ico">♪</div><h3>Sound Design</h3><p>Audio cleanup, syncing and mixing — sound that lands as sharply as the picture.</p></div>
+      <div class="sk"><div class="ico">▸</div><h3>Storytelling</h3><p>Structure-first editing: finding the story inside the footage and building the cut around it.</p></div>
+      <div class="sk"><div class="ico">▦</div><h3>Project Management</h3><p>Organized, communicative and fast — full ownership from ingest to export.</p></div>
+    </div>
+    <div class="tools-row">
+      <span class="tool hot">Adobe Premiere Pro</span>
+      <span class="tool hot">After Effects</span>
+      <span class="tool hot">CapCut</span>
+      <span class="tool">Fast Turnaround</span>
+      <span class="tool">Strong Communication</span>
+      <span class="tool">Team Player</span>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="wrap reveal">
+    <span class="eyebrow">Selected work</span>
+    <h2>Projects worth<br>a second watch.</h2>
+    <p class="lede">Six curated slots for my strongest edits — video previews and full case details are being added. Each card is reserved for a finished piece.</p>
+    <div class="proj-grid stagger">
+
+      <article class="proj">
+        <div class="thumb"><div class="sheen"></div><span class="tag">Motion Design</span><div class="play" aria-hidden="true"></div><span class="dur">00:45</span><div class="scrub"><i></i></div></div>
+        <div class="proj-body">
+          <h3>Brand Logo Animation Reel</h3>
+          <p>[Placeholder] Animated logo reveals and brand stingers crafted in After Effects for client identities.</p>
+          <div class="proj-meta"><span class="pm">Motion Designer</span><span class="pm">After Effects</span></div>
+          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="thumb"><div class="sheen"></div><span class="tag">Social Media</span><div class="play" aria-hidden="true"></div><span class="dur">00:30</span><div class="scrub"><i></i></div></div>
+        <div class="proj-body">
+          <h3>Short-Form Content Series</h3>
+          <p>[Placeholder] Fast-paced vertical edits built for retention — hooks, captions and transitions tuned for social.</p>
+          <div class="proj-meta"><span class="pm">Editor</span><span class="pm">Premiere Pro</span><span class="pm">CapCut</span></div>
+          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="thumb"><div class="sheen"></div><span class="tag">Sports</span><div class="play" aria-hidden="true"></div><span class="dur">02:10</span><div class="scrub"><i></i></div></div>
+        <div class="proj-body">
+          <h3>Cricket Highlights Package</h3>
+          <p>[Placeholder] High-energy highlight edits with dynamic cutting, sound design and broadcast-style graphics.</p>
+          <div class="proj-meta"><span class="pm">Editor</span><span class="pm">Premiere Pro</span><span class="pm">After Effects</span></div>
+          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="thumb"><div class="sheen"></div><span class="tag">Narrative</span><div class="play" aria-hidden="true"></div><span class="dur">05:30</span><div class="scrub"><i></i></div></div>
+        <div class="proj-body">
+          <h3>College Film Project</h3>
+          <p>[Placeholder] A story-driven short edited end to end — rough cut through final grade, with original sound design.</p>
+          <div class="proj-meta"><span class="pm">Editor &amp; Colorist</span><span class="pm">Premiere Pro</span></div>
+          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="thumb"><div class="sheen"></div><span class="tag">Commercial</span><div class="play" aria-hidden="true"></div><span class="dur">01:00</span><div class="scrub"><i></i></div></div>
+        <div class="proj-body">
+          <h3>Promo &amp; Brand Video</h3>
+          <p>[Placeholder] A polished promotional edit combining motion graphics, music and a clean cinematic grade.</p>
+          <div class="proj-meta"><span class="pm">Editor &amp; Motion Designer</span><span class="pm">Premiere Pro</span><span class="pm">AE</span></div>
+          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="thumb"><div class="sheen"></div><span class="tag">Personal</span><div class="play" aria-hidden="true"></div><span class="dur">01:20</span><div class="scrub"><i></i></div></div>
+        <div class="proj-body">
+          <h3>Self-Directed Passion Project</h3>
+          <p>[Placeholder] An experimental edit exploring pacing, transitions and visual storytelling technique.</p>
+          <div class="proj-meta"><span class="pm">Director &amp; Editor</span><span class="pm">Premiere Pro</span><span class="pm">AE</span><span class="pm">CapCut</span></div>
+          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+        </div>
+      </article>
+
+    </div>
+    <div class="work-cta">
+      <a class="btn btn-dark" href="#contact">Let's work together <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap reveal">
+    <span class="eyebrow">Experience</span>
+    <h2>The journey so far.</h2>
+    <div class="xp" style="margin-top:52px">
+      <div class="xp-item">
+        <span class="when">Full-time</span>
+        <h3>Motion Graphic Designer</h3>
+        <div class="org">Skilldzire</div>
+        <ul>
+          <li>Designed and animated logo reveals for brand content</li>
+          <li>Wrote scripts and built motion graphics for video projects</li>
+          <li>Handled cuts, transitions and final delivery</li>
+        </ul>
+      </div>
+      <div class="xp-item">
+        <span class="when">Freelance · Ongoing</span>
+        <h3>Freelance Video Editor</h3>
+        <div class="org">Independent — 100+ projects delivered</div>
+        <ul>
+          <li>Edited 100+ videos for personal, college and social media projects</li>
+          <li>Removed unwanted elements, added effects, delivered polished final cuts</li>
+          <li>Managed the full workflow: rough cut → fine cut → effects → sound → export</li>
+          <li>Consistently praised for creativity and technical precision</li>
+        </ul>
+      </div>
+      <div class="xp-item">
+        <span class="when">Foundation</span>
+        <h3>Self-Directed Projects</h3>
+        <div class="org">Passion-driven learning</div>
+        <ul>
+          <li>Built real-world skills through independent creative projects</li>
+          <li>Cricket editing work that sharpened fast-paced cutting instincts</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap reveal">
+    <span class="eyebrow">Education</span>
+    <h2>Academic background.</h2>
+    <div class="grid-2" style="margin-top:44px">
+      <div class="card">
+        <span class="yr">2024</span>
+        <h3>MTech — Machine Design</h3>
+        <p>Nagarjuna University, Guntur</p>
+      </div>
+      <div class="card">
+        <span class="yr">2021</span>
+        <h3>BE — Mechanical Engineering</h3>
+        <p>Andhra University, Sir CRR College of Engineering, Eluru</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="wrap reveal">
+    <span class="eyebrow">Client feedback</span>
+    <h2>Kind words, earned.</h2>
+    <p class="lede">Feedback from collaborators and clients — more on the way.</p>
+    <div class="testi-grid stagger">
+      <div class="testi">
+        <span class="stars">★★★★★</span>
+        <p>[Testimonial placeholder — e.g. "Emiel took our raw footage and turned it into something we were genuinely proud to publish."]</p>
+        <div class="who"><b>Client Name</b>Project / Company</div>
+      </div>
+      <div class="testi">
+        <span class="stars">★★★★★</span>
+        <p>[Testimonial placeholder — e.g. "Fast, professional and creative. The turnaround exceeded every expectation."]</p>
+        <div class="who"><b>Client Name</b>Project / Company</div>
+      </div>
+      <div class="testi">
+        <span class="stars">★★★★★</span>
+        <p>[Testimonial placeholder — e.g. "Clear communication throughout, and a final edit that matched the vision exactly."]</p>
+        <div class="who"><b>Client Name</b>Project / Company</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="contact-card">
+      <div class="glow"></div>
+      <div class="contact-grid">
+        <div class="contact-left">
+          <span class="eyebrow">Contact</span>
+          <h2>Let's make something worth watching.</h2>
+          <p>Available for freelance projects and part-time editing roles. Tell me about your footage, your deadline and the story you want to tell.</p>
+          <ul class="c-list">
+            <li><span class="k">Email</span><a href="mailto:emiel.me45@gmail.com">emiel.me45@gmail.com</a></li>
+            <li><span class="k">Phone</span><a href="tel:+919989711800">+91 99897 11800</a></li>
+            <li><span class="k">Status</span><span class="open">● Open for new projects</span></li>
+          </ul>
+        </div>
+        <form onsubmit="event.preventDefault();this.querySelector('.form-note').textContent='Thank you — this demo form does not send yet. Please email me directly at emiel.me45@gmail.com.'">
+          <div class="form-row">
+            <div><label for="name">Name</label><input id="name" type="text" placeholder="Your name" required></div>
+            <div><label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" required></div>
+          </div>
+          <div><label for="type">Project type</label><input id="type" type="text" placeholder="Brand film, social edit, motion graphics…"></div>
+          <div><label for="msg">Details</label><textarea id="msg" placeholder="Tell me about the project, timeline and goals…" required></textarea></div>
+          <button class="btn btn-dark" type="submit">Send message <span class="arr">→</span></button>
+          <span class="form-note"></span>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span><b>K. Emiel P</b> — Video Editor &amp; Motion Designer</span>
+    <span>Cut. Grade. Deliver. <span class="o">Repeat.</span></span>
+  </div>
+</footer>
+
+<script>
+// scroll progress bar
+const prog=document.getElementById('progress');
+addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%';
+},{passive:true});
+
+// rotating hero word
+const words=['BRAND FILMS.','SOCIAL EDITS.','MOTION GRAPHICS.','HIGHLIGHT REELS.','YOUR STORY.'];
+const swap=document.getElementById('swap');
+let wi=0;
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce){
+  setInterval(()=>{
+    swap.classList.add('out');
+    setTimeout(()=>{
+      wi=(wi+1)%words.length;
+      swap.textContent=words[wi];
+      swap.classList.remove('out');
+      swap.classList.add('in');
+      setTimeout(()=>swap.classList.remove('in'),450);
+    },300);
+  },2600);
+}
+
+// reveal + stagger
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal,.stagger').forEach(el=>io.observe(el));
+
+// counters
+const cio=new IntersectionObserver(es=>{es.forEach(e=>{
+  if(!e.isIntersecting)return;
+  const el=e.target,to=+el.dataset.to,dur=1200,t0=performance.now();
+  if(reduce){el.textContent=to;cio.unobserve(el);return}
+  const tick=t=>{
+    const p=Math.min((t-t0)/dur,1);
+    el.textContent=Math.round(to*(1-Math.pow(1-p,3)));
+    if(p<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+  cio.unobserve(el);
+})},{threshold:.6});
+document.querySelectorAll('.count').forEach(el=>cio.observe(el));
+
+// mobile menu
+const b=document.getElementById('burger'),n=document.getElementById('navPill');
+b.addEventListener('click',()=>n.classList.toggle('open'));
+n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>n.classList.remove('open')));
+</script>
+</body>
+</html>
