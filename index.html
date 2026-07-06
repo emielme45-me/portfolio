@@ -496,6 +496,7 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
     <div class="contact-card">
       <div class="glow"></div>
       <div class="contact-grid">
+        <form action="https://api.web3forms.com/submit" method="POST">
         <div class="contact-left">
           <span class="eyebrow">Contact</span>
           <h2>Let's make something worth watching.</h2>
@@ -508,6 +509,7 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
         </div>
         <form onsubmit="event.preventDefault();this.querySelector('.form-note').textContent='Thank you — this demo form does not send yet. Please email me directly at emiel.me45@gmail.com.'">
           <div class="form-row">
+            <input type="hidden" name="access_key" value="8901a954-5452-48df-9929-0ccbcad7cdb1">
             <div><label for="name">Name</label><input id="name" type="text" placeholder="Your name" required></div>
             <div><label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" required></div>
           </div>
