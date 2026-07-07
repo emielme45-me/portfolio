@@ -506,17 +506,18 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
             <li><span class="k">Status</span><span class="open">● Open for new projects</span></li>
           </ul>
         </div>
-        <form action="https://api.web3forms.com/submit" method="POST">
+       <form action="https://api.web3forms.com/submit" method="POST">
   <input type="hidden" name="access_key" value="8901a954-5452-48df-9929-0ccbcad7cdb1">
   <input type="hidden" name="subject" value="New message from portfolio website">
-            <div><label for="name">Name</label><input id="name" type="text" placeholder="Your name" required></div>
-            <div><label for="email">Email</label><input id="email" type="email" placeholder="you@company.com" required></div>
-          </div>
-          <div><label for="type">Project type</label><input id="type" type="text" placeholder="Brand film, social edit, motion graphics…"></div>
-          <div><label for="msg">Details</label><textarea id="msg" placeholder="Tell me about the project, timeline and goals…" required></textarea></div>
-          <button class="btn btn-dark" type="submit">Send message <span class="arr">→</span></button>
-          <span class="form-note"></span>
-        </form>
+  <div class="form-row">
+    <div><label for="name">Name</label><input id="name" type="text" name="name" placeholder="Your name" required></div>
+    <div><label for="email">Email</label><input id="email" type="email" name="email" placeholder="you@company.com" required></div>
+  </div>
+  <div><label for="type">Project type</label><input id="type" type="text" name="project_type" placeholder="Brand film, social edit, motion graphics…"></div>
+  <div><label for="msg">Details</label><textarea id="msg" name="message" placeholder="Tell me about the project, timeline and goals…" required></textarea></div>
+  <button class="btn btn-dark" type="submit">Send message <span class="arr">→</span></button>
+  <span class="form-note"></span>
+</form>
       </div>
     </div>
   </div>
