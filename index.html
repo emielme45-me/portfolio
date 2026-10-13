@@ -253,6 +253,12 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
   header{padding-top:130px}
   .contact-card{padding:44px 26px;border-radius:22px}
 }
+
+/* video player popup */
+.vmodal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:24px;background:rgba(20,19,17,.88)}
+.vmodal.open{display:flex}
+.vmodal video{width:100%;max-width:1100px;max-height:85vh;border-radius:12px;background:#000}
+.vmodal-close{position:absolute;top:16px;right:20px;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.92);color:var(--ink);font-size:1.5rem;cursor:pointer}
 </style>
 </head>
 <body>
@@ -359,7 +365,7 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
   <div class="wrap reveal">
     <span class="eyebrow">Selected work</span>
     <h2>Projects worth<br>a second watch.</h2>
-    <p class="lede">four curated slots for my strongest edits — video previews and full case details are being added. Each card is reserved for a finished piece.</p>
+    <p class="lede">five curated slots for my strongest edits — video previews and full case details are being added. Each card is reserved for a finished piece.</p>
     <div class="proj-grid stagger">
       
  <article class="proj">
@@ -372,7 +378,7 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
 </div>
           <p> Animated logo reveals and brand stingers crafted in After Effects for client identities.</p>
           <div class="proj-meta"><span class="pm">Motion Graphics</span><span class="pm">After Effects</span></div>
-          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+          <a class="proj-link" href="Layer%209-SkillDzire.mp4">View project <span class="arr">→</span></a>
         </div>
       </article>
 
@@ -387,7 +393,7 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
           
           <p>Fast-paced edits built for retention — hooks and transitions tuned for social.</p>
           <div class="proj-meta"><span class="pm">Editor</span><span class="pm">Premiere Pro</span><span class="pm">After Effects</span></div>
-          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+          <a class="proj-link" href="pat%20cummins.mp4">View project <span class="arr">→</span></a>
         </div>
       </article>
 
@@ -401,7 +407,7 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
 </div>
           <p>High-energy highlight edits with dynamic cutting and well-organised clips with transitions leading story-driven edits.  </p>
           <div class="proj-meta"><span class="pm">Editor</span><span class="pm">Premiere Pro</span><span class="pm">After Effects</span></div>
-          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+          <a class="proj-link" href="williamson.mp4">View project <span class="arr">→</span></a>
         </div>
       </article>
 
@@ -415,7 +421,21 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
 </div>
           <p> A story-driven short edited end to end — rough cut through final grade, with original sound design.</p>
           <div class="proj-meta"><span class="pm">Editor &amp; Colorist</span><span class="pm">Premiere Pro</span></div>
-          <a class="proj-link" href="#">View project <span class="arr">→</span></a>
+          <a class="proj-link" href="2021%20saga.mp4">View project <span class="arr">→</span></a>
+        </div>
+      </article>
+
+      <article class="proj">
+        <div class="proj-body">
+          <h3>Motion Graphics</h3>
+                    <div class="thumb">
+  <video src="Motion Graphics by emiel.mp4" autoplay muted loop playsinline
+         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+  <span class="tag">Motion Graphics</span>
+</div>
+          <p>Animated titles, shapes and kinetic type designed and keyframed in After Effects.</p>
+          <div class="proj-meta"><span class="pm">Motion Graphics</span><span class="pm">After Effects</span></div>
+          <a class="proj-link" href="Motion%20Graphics%20by%20emiel.mp4">View project <span class="arr">→</span></a>
         </div>
       </article>
 
@@ -530,6 +550,11 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
   </div>
 </footer>
 
+<div class="vmodal" id="vmodal" role="dialog" aria-modal="true" aria-label="Project video">
+  <button class="vmodal-close" id="vmodalClose" aria-label="Close video">×</button>
+  <video id="vmodalVideo" controls playsinline></video>
+</div>
+
 <script>
 // scroll progress bar
 const prog=document.getElementById('progress');
@@ -579,6 +604,22 @@ document.querySelectorAll('.count').forEach(el=>cio.observe(el));
 const b=document.getElementById('burger'),n=document.getElementById('navPill');
 b.addEventListener('click',()=>n.classList.toggle('open'));
 n.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>n.classList.remove('open')));
+
+// View project: play the card's video in a popup instead of jumping to the top
+const vm=document.getElementById('vmodal'),vmv=document.getElementById('vmodalVideo');
+function closeVideo(){vm.classList.remove('open');vmv.pause();vmv.removeAttribute('src');vmv.load();document.body.style.overflow=''}
+document.querySelectorAll('.proj-link').forEach(a=>a.addEventListener('click',e=>{
+  const v=a.closest('.proj').querySelector('video');
+  if(!v)return;
+  e.preventDefault();
+  vmv.src=v.getAttribute('src');
+  vm.classList.add('open');
+  document.body.style.overflow='hidden';
+  vmv.play().catch(()=>{});
+}));
+document.getElementById('vmodalClose').addEventListener('click',closeVideo);
+vm.addEventListener('click',e=>{if(e.target===vm)closeVideo()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&vm.classList.contains('open'))closeVideo()});
 </script>
 </body>
 </html>
