@@ -553,9 +553,7 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
             <li><span class="k">Status</span><span class="open">● Open for new projects</span></li>
           </ul>
         </div>
-       <form action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="8901a954-5452-48df-9929-0ccbcad7cdb1">
-  <input type="hidden" name="subject" value="New message from portfolio website">
+       <form id="contact-form">
   <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
   <div class="form-row">
     <div><label for="name">Name</label><input id="name" type="text" name="name" placeholder="Your name" required></div>
@@ -564,8 +562,35 @@ footer{padding:40px 0 46px;color:var(--gray);font-size:.85rem}
   <div><label for="type">Project type</label><input id="type" type="text" name="project_type" placeholder="Brand film, social edit, motion graphics…"></div>
   <div><label for="msg">Details</label><textarea id="msg" name="message" placeholder="Tell me about the project, timeline and goals…" required></textarea></div>
   <button class="btn btn-dark" type="submit">Send message <span class="arr">→</span></button>
-  <span class="form-note"></span>
+  <span class="form-note" id="form-note"></span>
 </form>
+<script>
+(function(){
+  var form = document.getElementById('contact-form');
+  var note = document.getElementById('form-note');
+  if(!form) return;
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    note.textContent = 'Sending…';
+    var data = Object.fromEntries(new FormData(form).entries());
+    try {
+      var res = await fetch('https://portfoliochatbot-kappa.vercel.app/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        form.reset();
+        note.textContent = 'Thanks! Your message has been sent. ✅';
+      } else {
+        note.textContent = 'Something went wrong — please email emiel.me45@gmail.com directly.';
+      }
+    } catch (err) {
+      note.textContent = "Couldn't send — please email emiel.me45@gmail.com directly.";
+    }
+  });
+})();
+</script>
       </div>
     </div>
   </div>
